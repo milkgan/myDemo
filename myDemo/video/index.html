@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        padding: 0;
+        margin:0;
+    }
+    .video_player{
+        position: relative;
+        width:300px;
+        height:140px;
+        margin:0 auto;
+    }
+    video{
+        position: absolute;
+        left:0;
+        top:0;
+        width:300px;
+        height:140px;
+    }
+    .menu{
+        position:absolute;
+        width:100%;
+        height:50px;
+        background-color: rgba(219, 95, 95, 0.5);
+        bottom:0px;
+        display: none;
+    }
+    .play{
+        position:absolute;
+        width:30px;
+        height:16px;
+        border: 1px solid white;
+        text-align:center;
+        line-height: 16px;
+        color:white;
+        border-radius: 5px;
+        margin-left:10px;
+        top:50%;
+        margin-top:-8px;
+        cursor:pointer;
+        font-size: 8px;
+    }
+    .time{
+        position:absolute;
+        width:80px;
+        height:16px;
+        border: 1px solid white;
+        text-align:center;
+        line-height: 16px;
+        color:white;
+        border-radius: 5px;
+        margin-left:50px;
+        top:50%;
+        margin-top:-8px;
+        cursor:pointer;
+        font-size: 8px;
+    }
+    .progess_bar{
+        position:absolute;
+        width:100%;
+        height:2px;
+        background-color: gray;
+        left:0px;
+        top:-2px;
+    }
+    .progess_bar div{
+        position:absolute;
+        width:120px;
+        height:2px;
+        background-color: orange;
+        left:0px;
+        top:0px;
+    }
+    .progess_bar i{
+        position:absolute;
+        width:6px;
+        height:6px;
+        border-radius: 50%;
+        background-color: white;
+        left:120px;
+        top:-2px;
+    }
+    .quick{
+        position:absolute;
+        width:30px;
+        height:16px;
+        border: 1px solid white;
+        text-align:center;
+        line-height: 16px;
+        color:white;
+        border-radius: 5px;
+        left:150px;
+        top:50%;
+        margin-top:-8px;
+        cursor:pointer;
+        font-size: 8px;  
+    }
+    .quick_list{
+        position:absolute;
+        width:70px;
+        height:80px;
+        background-color:rgba(0,0,0,0.5);
+        left:150px;
+        top:-80px;
+        color:white;
+        display:none;        
+    }
+    .quick_list li{
+        position:relative;
+        width:100%;
+        height:20px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 8px;
+        list-style: none;
+        cursor:pointer;
+    }
+    .quick_list li:hover{
+        color:green;
+    }
+    .volAdd{
+        position:absolute;
+        width:40px;
+        height:16px;
+        border: 1px solid white;
+        text-align:center;
+        line-height: 16px;
+        color:white;
+        border-radius: 5px;
+        left:200px;
+        top:50%;
+        margin-top:-8px;
+        cursor:pointer;
+        font-size: 8px;  
+    }
+    .volIns{
+        position:absolute;
+        width:40px;
+        height:16px;
+        border: 1px solid white;
+        text-align:center;
+        line-height: 16px;
+        color:white;
+        border-radius: 5px;
+        left:250px;
+        top:50%;
+        margin-top:-8px;
+        cursor:pointer;
+        font-size: 8px;  
+    }
+    </style>
+</head>
+<body>
+    <div class="video_player">
+        <video src="movie.mp4"></video>
+        <div class="menu">
+            <!-- 播放 -->
+            <div class="play">播放</div>
+            <!-- 时间 -->
+            <div class="time">00:00/00:00</div>
+            <!-- 时间进度条 -->
+            <div class="progess_bar">
+                <div></div>
+                <i></i>
+            </div>
+            <!-- 倍速 -->
+            <div class="quick">倍速</div>
+            <div class="quick_list">
+                <ul>
+                    <li>正常速度</li>
+                    <li>x1.25</li>
+                    <li>x1.5</li>
+                    <li>x2</li>
+                </ul>
+            </div>
+            <!-- 音量 -->
+            <div class="volAdd">音量加</div>
+            <div class="volIns">音量减</div>
+        </div>
+        
+        
+    </div>
+    <script>
+        var videoPlayer = document.getElementsByClassName('video_player')[0];
+        var menu = document.getElementsByClassName('menu')[0];
+        var play = document.getElementsByClassName('play')[0];
+        var video = document.getElementsByTagName('video')[0];
+        var time = document.getElementsByClassName('time')[0];
+        var progessbar = document.getElementsByClassName('progess_bar')[0];
+        var quick = document.getElementsByClassName('quick')[0];
+        var quickList = document.getElementsByClassName('quick_list')[0];
+        var liList = quickList.getElementsByTagName('ul')[0].getElementsByTagName('li');
+        var volAdd = document.getElementsByClassName('volAdd')[0];
+        var volIns = document.getElementsByClassName('volIns')[0];
+        videoPlayer.onmouseenter = function(){
+            menu.style.display = 'block';
+
+        }
+        videoPlayer.onmouseleave = function(){
+            menu.style.display = 'none';
+
+        }
+        play.onclick = function(){
+            if(video.paused){
+                video.play();
+                play.innerHTML = '暂停';
+            }else{
+                video.pause();
+                play.innerHTML = '播放';
+            }
+        }
+        progessbar.onmouseenter = function(){
+            progessbar.style.height = '14px';
+            progessbar.style.top = '-14px';
+            progessbar.getElementsByTagName('div')[0].style.height = '14px';
+            progessbar.getElementsByTagName('i')[0].style.height = '18px';
+        }
+        progessbar.onmouseleave = function(){
+            progessbar.style.height = '2px';
+            progessbar.style.top = '-2px';
+            progessbar.getElementsByTagName('div')[0].style.height = '2px';
+            progessbar.getElementsByTagName('i')[0].style.height = '6px';
+        }
+        progessbar.onclick = function(e){
+            var location = e.layerX;
+            var width = progessbar.clientWidth;
+            // 秒数
+            var targetTime = location / width * video.duration;
+            video.currentTime = targetTime;
+            }
+
+        setInterval(function(){
+            // 一个是总的时间，一个是当前播放时间，单位都是秒
+            var total = video.duration;
+            var nowTime = video.currentTime;
+            time.innerHTML = parseInt(nowTime/60) +':'+ parseInt(nowTime%60)+'/' + 
+            parseInt(total/60) +':'+ parseInt(total%60);
+
+            var width = nowTime / total * progessbar.clientWidth;
+            progessbar.getElementsByTagName('div')[0].style.width = width + 'px';
+            progessbar.getElementsByTagName('i')[0].style.left = width + 'px';
+        }, 1000);
+
+        // 倍速
+        quick.onclick = function(){
+            quickList.style.display = 'block';
+        }
+        quickList.onmouseleave = function(){
+            quickList.style.display = 'none';
+        }
+        for(var i = 0; i < liList.length; i++){
+            liList[i].index = i;
+            liList[i].onclick = function() {
+                if(this.index == 0){//正常
+                    video.playbackRate = 1;//倍率
+                    quick.innerHTML = '倍速';
+                }else if(this.index == 1){
+                    video.playbackRate = 1.25;
+                    quick.innerHTML = 'x1.25';
+                }else if(this.index == 2){
+                    video.playbackRate = 1.5;
+                    quick.innerHTML = 'x1.5';
+                }else{
+                    video.playbackRate = 2;
+                    quick.innerHTML = 'x2';
+                }
+            }
+        }
+        // 音量加减
+        volAdd.onclick = function(){
+            video.volume = video.volume + 0.1 >= 1 ? 1 :video.volume + 0.1;
+        }
+        volIns.onclick = function(){
+            video.volume = video.volume - 0.1 <= 0 ? 0 :video.volume - 0.1;
+        }
+
+    </script>
+</body>
+</html>

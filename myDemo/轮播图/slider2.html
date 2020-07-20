@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+            list-style: none;
+        }
+        .wrapper{
+            position:relative;
+            margin:100px auto 0;
+            width:400px;
+            height:250px;
+            overflow: hidden;
+            
+        }
+        .wrapper .slider{
+            position: absolute;
+            top:0;
+            left:0;
+            width:2000px;
+            height:100%;
+            
+        }
+        .wrapper .slider li{
+            float:left;
+            width:400px;
+            height:100%;
+        }
+        .wrapper .slider li img{
+            width:100%;
+            height:100%;
+        }
+        .wrapper .btn{
+            position:absolute;
+            top:calc(50% - 15px);
+            width:40px;
+            height:40px;
+            background-color: #000;
+            opacity:0.1;
+            color:#fff;
+            font-size: 20px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
+        .wrapper .btn:hover{
+            opacity:0.9;
+        }
+        .wrapper .leftBtn{
+            
+            left:15px;
+        }
+        .wrapper .rightBtn{
+            right:15px;
+        }
+        .wrapper .index{
+            position:absolute;
+            bottom:15px;
+            width:100%;
+            text-align: center;
+            
+        }
+        .wrapper .index span{
+            display:inline-block;
+            background-color: #ccc;
+            width:10px;
+            height:10px;
+            border-radius: 50%;
+            cursor: pointer;
+           
+
+        }
+        .wrapper .index .active{
+            background-color: orange; 
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <ul class="slider">
+            <li><img src="./img/cat1.jpg" alt=""></li>
+            <li><img src="./img/cat2.jpg" alt=""></li>
+            <li><img src="./img/cat3.jpg" alt=""></li>
+            <li><img src="./img/cat4.jpg" alt=""></li>
+            <li><img src="./img/cat1.jpg" alt=""></li>
+        </ul>
+       <div class="btn leftBtn">&lt;</div>
+       <div class="btn rightBtn">&gt;</div>
+       <div class="index">
+           <span class="active"></span>
+           <span></span>
+           <span></span>
+           <span></span>
+       </div>
+    </div>
+    <script src="./move.js"></script>
+    <script>
+        var slider = document.getElementsByClassName('slider')[0];
+        var moveWidth = slider.children[0].offsetWidth;
+        var leftBtn = document.getElementsByClassName('leftBtn')[0];
+        var rightBtn = document.getElementsByClassName('rightBtn')[0];
+        var indexArr = document.getElementsByClassName('index')[0].getElementsByTagName('span');
+
+        var num = slider.children.length - 1;
+        var timer = null;
+        var lock = true;
+        var index = 0;
+        console.log(indexArr.length);
+        
+        leftBtn.onclick = function(){
+            autoMove('right>left');
+        }
+        rightBtn.onclick = function(){
+            autoMove('left>right');
+        }
+
+      for(var i = 0; i < indexArr.length; i++){
+         ( function(myIndex){
+            indexArr[i].onclick = function(){
+                lock = false;
+                clearTimeout(timer);
+                index = myIndex;
+                startMove(slider,{left: - index * moveWidth},function(){
+                    lock = true;
+                    timer = setTimeout(autoMove,1500);
+                    changeIndex(index);
+                    
+                })
+            }
+         })(i)
+      }
+    
+
+        function autoMove(direction){
+        if(lock){
+            lock = false;
+            clearTimeout(timer);
+            if(!direction || direction == 'left>right'){
+                index++;
+                startMove(slider,{left:slider.offsetLeft - moveWidth},function(){
+                   
+                    if(slider.offsetLeft == - num * moveWidth){
+                        
+                        slider.style.left  = '0px';
+                        index = 0;
+                    }
+                    timer = setTimeout(autoMove,1500);
+                    lock = true;
+                    changeIndex(index);
+                })
+                    
+              
+            }else if(direction == 'right>left'){
+                if(slider.offsetLeft == 0){
+                        
+                        slider.style.left  = - num * moveWidth + 'px';
+                }
+                startMove(slider,{left:slider.offsetLeft + moveWidth},function(){
+                   
+                   index--;
+                   timer = setTimeout(autoMove,1500);  
+                   lock = true;
+                   changeIndex(index);
+               })
+            }
+        }
+           
+        }
+        function changeIndex(_index){
+            for(i = 0; i < indexArr.length;i++){
+                indexArr[i].className = '';
+            }
+            indexArr[_index].className = 'active';
+           
+               
+        }
+        timer = setTimeout(autoMove,1500);
+    </script>
+    
+
+</body>
+</html>

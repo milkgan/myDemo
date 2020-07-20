@@ -1,0 +1,235 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration:none;
+}
+.header{
+    height:80px;
+    width:100%;
+    border-bottom:1px solid #ccc;
+    background-color: #fff;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:99;
+}
+.header .nav{
+    width:80%;
+    height:100%;
+    margin:0 auto;
+    position:relative;
+}
+.header .nav .logo{
+    display:inline-block;
+    width:50px;
+    height:50px;
+    position:absolute;
+    top:50%;
+    margin-top:-25px;
+}
+.header .nav .logo img{
+    width:100%;
+    height:100%;
+}
+.header .nav .list{
+    float:right;
+}
+.header .nav .list li{
+    float:left;
+}
+.header .nav .list li a{
+    display:inline-block;
+    padding:0 20px;
+    line-height: 80px;
+    color:#777;
+}
+.header .nav .list li a:hover{
+    color:#000;
+}
+.header .btnwrapper{
+    display:none;
+    float:right;
+    position:relative;
+
+}
+.header .btnwrapper .btn{
+    display:block;
+    height:30px;
+    width:30px;
+    background-image: url(./img/4.png);
+    background-size: 100% 100%;
+    position:absolute;
+    right:0;
+    top:10px;
+
+}
+.header .btnwrapper ul{
+    display:none;
+    margin-top:50px;
+    width:300px;
+}
+.header .btnwrapper ul li{
+    border-bottom: 1px solid #f00;
+    height:40px;
+    line-height:40px;
+    text-align: center;
+    background-color: violet;
+
+}
+@media screen and (max-width:900px){
+    .header{
+        height:50px;
+    }
+    .header .nav .list li a{
+        padding:0 10px;
+        line-height:50px;
+    }
+}
+@media screen and (max-width:700px){
+    .header .nav .list{
+        display:none;
+    }
+    .header .btnwrapper{
+        display:block;
+    }
+}
+.content{
+    position:relative;
+    width:100%;
+    height:800px;
+   
+}
+#swiper{
+    position:relative;
+    width:100%;
+    height:700px;
+    overflow:hidden;
+}
+.content .text{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate3d(-50%,-50%,0);
+    opacity:0.15;
+}
+.content .text p{
+    color:#ddd;
+    font-size:24px;
+    font-weight:bold;
+}
+.content:hover .text{
+    opacity:0.9;
+    transition:1s;
+}
+.content .tran{
+    width:70%;
+    height:160px;
+    /* border:1px solid #000; */
+    background-color: #fff;
+    position:absolute;
+    margin-left:20%;
+    margin-top:-50px;
+}
+.content .tran ul{
+    display:flex;
+}
+.content .tran ul li{
+    flex:1;
+    margin-right:10px;
+    border-right:1px solid #ddd;
+}
+@media screen and (max-width:900px){
+    .content{
+        height:700px;
+    }
+    #swiper{
+        height:600px;
+    }
+}
+@media screen and (max-width: 700px){
+    .content{
+        height:550px;
+    }
+    #swiper{
+        height:450px;
+    }
+    .content .tran{
+        height:130px
+    }
+}
+
+@media screen and (max-width:400px){
+    .content .tran{
+        display: none;
+    }
+}
+.project{
+    width:80%;
+    margin:0 auto;
+}
+.project .list{
+    width:100%;
+}
+.project .list .item{
+    display:inline-block;
+    width:260px;
+    height:150px;
+    margin:20px;
+}
+.project .list .item img{
+    width:100%;
+}
+@media screen and (max-width:1300px){
+    .project .list .item{
+        width:220px;
+        margin:13px;
+    }
+}
+@media screen and (max-width: 900px){
+    .project .list .item{
+        width:250px;
+        margin:10px;
+    }
+}
+@media screen and (max-width: 700px){
+    .project .list .item{
+        width:450px;
+        margin:0px auto;
+    }
+}
+.footer{
+    position:relative;
+    width:100%;
+    height:500px;
+    background: url(./img/bottom.jpg) no-repeat;
+    background-size: 100% 100%;
+    background-position: center center;
+
+}
+.footer .shadow{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.footer a{
+    display:inline-block;
+    width:80px;
+    height:80px;
+    margin-left:30%;
+    margin-top:10%;
+}
+.footer a img{
+    width:100%;
+}
+.footer p{
+    position:absolute;
+    left:30%;
+    width:300px;
+    font-size:15px;
+    color:#fff;
+    opacity:0.8;
+}

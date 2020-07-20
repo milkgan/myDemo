@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inp">
+    <button id="btn">搜索</button>
+    <ul id="wrap"></ul> 
+    <script>
+        var inp = document.getElementById('inp');
+        var btn = document.getElementById('btn');
+        var wrap = document.getElementById('wrap');
+        var data = [{name:'天线宝宝'},{name:'宝宝'},{name:'山大王'},{name:'山大王天线'},{name:'山大王宝宝'}];
+
+        function random(abc){
+            var str = '';
+            // var str;
+            abc.forEach(function(item) {
+                // str = '<li>' + item.name + '</li>';
+                str += `<li>${item.name}</li>`;
+
+            });
+            wrap.innerHTML = str;
+        }
+
+       random(data);
+
+        btn.onclick = function (){
+            var key = inp.value;
+            var datalist = data.filter(function(item) {
+                return item.name.indexOf(key) > -1;
+            });
+            random(datalist);
+            history.pushState({
+                key:key
+            },null,'#' + key);
+        }
+        window.addEventListener('popstate', function(e) {
+            console.log(e.state);
+            var key = e.state ? e.state.key : '';
+            var datalist = data.filter(function(item) {
+                return item.name.indexOf(key) > -1;
+            });
+            inp.value = key;
+            random(datalist);
+
+        });
+    
+    </script>   
+</body>
+</html>
